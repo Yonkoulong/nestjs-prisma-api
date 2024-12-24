@@ -1,16 +1,12 @@
-import {
-  ForbiddenException,
-  Injectable,
-  PayloadTooLargeException,
-} from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 
 import * as argon from 'argon2';
 
-import { PrismaService } from 'src/prisma/prisma.service';
 import { AuthDto } from './dto';
 import { ConfigService } from '@nestjs/config';
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable({})
 export class AuthService {
@@ -32,7 +28,7 @@ export class AuthService {
     }
 
     const pwMatches = await argon.verify(user.hash, dto.password);
-    
+
     if (!pwMatches) {
       throw new ForbiddenException('Credentials incorrect');
     }
