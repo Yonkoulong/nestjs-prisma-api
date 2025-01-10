@@ -13,6 +13,7 @@ export class UserService {
     });
 
     // Remove sensitive fields
+    delete user.hashedRt;
     delete user.hash;
     return user;
   }

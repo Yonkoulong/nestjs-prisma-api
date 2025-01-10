@@ -11,8 +11,8 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     private prisma: PrismaService,
   ) {
     super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: config.get('JWT_SECRET'),
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(), // Extracts the JWT from the Authorization header
+      secretOrKey: config.get('JWT_SECRET'), // The secret key used to verify the signature of the JWT
     });
   }
 
@@ -24,6 +24,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     });
 
     delete user.hash;
+    delete user.hashedRt;
     return user;
   }
 }
