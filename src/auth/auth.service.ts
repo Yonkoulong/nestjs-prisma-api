@@ -88,8 +88,6 @@ export class AuthService {
     if (!user) {
       throw new ForbiddenException('Access Denied');
     }
-    console.log(user.hashedRt);
-    console.log(rt);
 
     const rtMatches = await argon.verify(user.hashedRt, rt);
 
